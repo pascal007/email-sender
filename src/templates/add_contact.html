@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+
+Add contact
+
+{% endblock title %}
+{% block content %}
+<div class="main">
+<h1>Add contact</h1>
+
+
+    <form method="post">
+        {% csrf_token %}
+        <p>First name</p>
+        {{form.first_name}}
+        <p>Last name</p>
+        {{form.last_name}}
+        <p>Email</p>
+        {{form.email}}
+        <p>Group</p>
+        {{form.group}}
+        <button type="submit">submit</button>
+    </form>
+
+</div>
+
+{% endblock content %}

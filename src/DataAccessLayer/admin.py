@@ -1,6 +1,8 @@
 from django.contrib import admin
 from DataAccessLayer.User.model import User
 from django.contrib.auth.admin import UserAdmin
+from DataAccessLayer.ContactGroup.model import ContactGroup
+from DataAccessLayer.Contact.model import Contact
 
 
 class UserAdminConfig(UserAdmin):
@@ -24,3 +26,5 @@ class UserAdminConfig(UserAdmin):
 
 
 admin.site.register(User, UserAdminConfig)
+admin.site.register(Contact)
+admin.site.register(ContactGroup)

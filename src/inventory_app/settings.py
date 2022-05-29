@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'DataAccessLayer'
+    'DataAccessLayer',
+    'Contact',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
