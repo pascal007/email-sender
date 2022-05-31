@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, ListView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import redirect
 from core.forms import SignUpForm
+from DataAccessLayer.Contact.model import Contact
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
@@ -26,6 +27,17 @@ class SignUpView(FormView):
         login(self.request, user)
 
         return super().form_valid(form)
+
+
+class ContactDashboardView(LoginRequiredMixin, ListView):
+    model = Contact
+
+    def get_queryset(self):
+        qs = self.model.objects.filter(
+            created_by=self.request.user
+        )
+
+        return qs
 
 
 class LogoutView(LoginRequiredMixin, View):

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+
+Add contact
+
+{% endblock title %}
+{% block content %}
+<div class="main">
+<h1>Send Mail to {{recipient.first_name}}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Email address</p>
+        {{form.email}}
+    <p>Subject</p>
+    {{form.subject}}
+    <p>Body</p>
+    {{form.body}}
+        <p></p>
+        <button type="submit">Send</button>
+    </form>
+
+
+
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+<script>
+    document.getElementById('email_box').value = '{{recipient.email}}'
+</script>
+
+{% endblock js %}

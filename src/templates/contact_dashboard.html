@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+
+Contact Dashboard
+
+{% endblock title %}
+{% block content %}
+<div class="main">
+<h1>Contacts Page</h1>
+
+    <p>You have {{contacts|length}} contact{{contact|pluralize:",s"}}</p>
+    <ul>
+        {% for item in contacts %}
+        <li>{{item.first_name}} {{item.last_name}} - {{item.email}} <a href="{% url 'contact:send-mail' item.id %}"><button>Send Mail</button> </a>
+            <button>Update</button>
+            <button>Delete</button></li>
+
+        {% endfor %}
+    </ul>
+
+    <form method="post">
+        <input type="text" placeholder="enter contact name">
+        <button type="submit">submit</button>
+    </form>
+
+    <a href="{% url 'contact:add-contact' %}">
+<button>Add Contact</button>
+        </a>
+</div>
+
+{% endblock content %}
