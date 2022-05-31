@@ -5,8 +5,9 @@ from django.views.generic import TemplateView, FormView
 from DataAccessLayer.Contact.model import Contact
 from Contact.forms import AddContactForm, SendMailForm
 from DataAccessLayer.ContactGroup.model import ContactGroup
+from django.shortcuts import redirect, render, reverse
+from Contact.tasks import send_review_email
 
-from django.shortcuts import render, reverse
 
 
 # Create your views here.
@@ -60,6 +61,7 @@ class SendMailView(LoginRequiredMixin, View):
     form = SendMailForm
 
     def get(self, request, id):
+
         recipient_contact = id
         try:
             recipient = Contact.objects.get(
@@ -90,13 +92,15 @@ class SendMailView(LoginRequiredMixin, View):
             email = contact.email
             body = form.cleaned_data.get('body')
 
+            send_review_email.delay(subject, email, body)
+
             messages.success(request, 'Mail sent successfully')
             return redirect('contact:contact_dashboard')
 
         else:
             messages.error(request, 'Mail could not be sent')
+            return redirect('contact:contact_dashboard')
 
-        return reverse('contact:contact_dashboard')
 
 
 
