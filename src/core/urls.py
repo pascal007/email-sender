@@ -21,13 +21,12 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 app_name = 'core'
-app_name = 'core'
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='index.html'), name='home-view'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('sign-up', SignUpView.as_view(), name='sign-up'),
-    path('', DashboardView.as_view(), name='dashboard')
+    path('', DashboardView.as_view(), name='dashboard'),
 ]
 
 if settings.DEBUG:
